@@ -1,0 +1,122 @@
+﻿@using CompanyProvider.Domain.Enums;
+@using CompanyProvider.Domain.Extensions;
+
+@{
+    Layout = null;
+}
+
+@model CompanyProvider.API.Models.NewCompanyProviderViewModel
+
+<div class="modal-header">
+    <h5 class="modal-title" id="providerLabel">Fornecedor</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form id="providerForm">
+        @Html.HiddenFor(p => p.Id)
+        <div class="form-group">
+            <div class="row">
+                <div class="col-5 text-right">
+                    @Html.LabelFor(m => m.CompanyId)
+                </div>
+                <div class="col">
+                    @Html.DropDownListFor(m => m.CompanyId, Model.Companies, "Selecione")
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-5 text-right">
+                    @Html.LabelFor(m => m.Name)
+                </div>
+                <div class="col">
+                    @Html.TextBoxFor(m => m.Name)
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-5 text-right">
+                    @Html.LabelFor(m => m.PersonType)
+                </div>
+                <div class="col">
+                    @Html.RadioButtonFor(m => m.PersonType, CompanyProvider.Domain.Enums.PersonType.Legal)
+                    @Html.Label(CompanyProvider.Domain.Enums.PersonType.Legal.GetDescription())
+                    @Html.RadioButtonFor(m => m.PersonType, CompanyProvider.Domain.Enums.PersonType.Physical)
+                    @Html.Label(CompanyProvider.Domain.Enums.PersonType.Physical.GetDescription())
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-5 text-right">
+                    @Html.LabelFor(m => m.CpfCnpj)
+                </div>
+                <div class="col">
+                    @Html.TextBoxFor(m => m.CpfCnpj, new { id = "cpfCnpj" })
+                </div>
+            </div>
+        </div>
+        <div id="physicalPersonInformation" class="@(Model.PersonType == PersonType.Legal ? "hidden" : "")">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-5 text-right">
+                        @Html.LabelFor(m => m.Rg)
+                    </div>
+                    <div class="col">
+                        @Html.TextBoxFor(m => m.Rg, new { id = "rg" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-5 text-right">
+                        @Html.LabelFor(m => m.BirthDate)
+                    </div>
+                    <div class="col">
+                        @Html.TextBoxFor(m => m.BirthDate, new { type = "date" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-5 text-right">
+                    @Html.LabelFor(m => m.Contacts)
+                </div>
+                <div class="col" id="contactList">
+                    @{
+                        var contactIndex = 0;
+
+                        if (Model.Contacts.Any())
+                        {
+                            foreach (var contact in Model.Contacts)
+                            {
+                                <div class="inline-item phone-item">
+                                    @Html.Hidden("Contacts[" + contactIndex + "].Id", @contact.Id)
+                                    @Html.Hidden("Contacts[" + contactIndex + "].ToDelete", false, new { @class = "to-delete" })
+                                    @Html.TextBox("Contacts[" + contactIndex + "].PhoneNumber", @contact.PhoneNumber)
+                                    <div><i class="fas fa-trash-alt" onclick="deletePhone(this, @contact.Id)"></i></div>
+                                </div>
+
+                                contactIndex++;
+                            }
+                        }
+
+                        <div class="inline-item phone-item">
+                            @Html.TextBox("Contacts[" + contactIndex + "].PhoneNumber", "")
+                            <div><i class="fas fa-trash-alt hidden" onclick="deletePhone(this)"></i></div>
+                            <div><i class="fas fa-plus-circle" onclick="newContact()"></i></div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <input type="button" class="btn btn-primary" id="saveProviderButton" value="Salvar" />
+    <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancelar" />
+</div>

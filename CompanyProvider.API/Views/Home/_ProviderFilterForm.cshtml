@@ -1,0 +1,67 @@
+﻿@using CompanyProvider.Domain.Enums;
+@using CompanyProvider.Domain.Extensions;
+
+@{
+    Layout = null;
+}
+
+@model CompanyProvider.Domain.Filters.CompanyProviderFilter
+
+<div class="modal-header">
+    <h5 class="modal-title" id="filterProviderLabel">Filtrar</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@using (Html.BeginForm("Index", "Home"))
+{
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-5 text-right">
+                    Nome
+                </div>
+                <div class="col">
+                    @Html.TextBoxFor(m => m.Name)
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-5 text-right">
+                    @Html.LabelFor(m => m.PersonType)
+                </div>
+                <div class="col">
+                    @Html.RadioButtonFor(m => m.PersonType, CompanyProvider.Domain.Enums.PersonType.Legal)
+                    @Html.Label(CompanyProvider.Domain.Enums.PersonType.Legal.GetDescription())
+                    @Html.RadioButtonFor(m => m.PersonType, CompanyProvider.Domain.Enums.PersonType.Physical)
+                    @Html.Label(CompanyProvider.Domain.Enums.PersonType.Physical.GetDescription())
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-5 text-right">
+                    Cpf/Cnpj
+                </div>
+                <div class="col">
+                    @Html.TextBoxFor(m => m.CpfCnpj, new { id = "cpfCnpj" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-5 text-right">
+                    Data de Criação
+                </div>
+                <div class="col">
+                    @Html.TextBoxFor(m => m.CreatedDate, new { type = "date" })
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="modal-footer">
+    <input type="submit" class="btn btn-primary" id="filterProviderButton" value="Salvar" />
+    <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancelar" />
+</div>
+}

@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Fornecedores";
+}
+
+@model CompanyProvider.API.Models.CompanyProviderListViewModel
+
+<div>
+    <input type="button" value="Cadastrar" onclick="createProvider()" />
+    <input type="button" value="Filtrar" onclick="filterProvider()" />
+</div>
+
+<br />
+
+<div class="grid">
+    <div class="row grid-header">
+        <div class="col"></div>
+        <div class="col">Empresa</div>
+        <div class="col">Fornecedor</div>
+        <div class="col">Estado</div>
+        <div class="col">Cpf/Cnpj</div>
+        <div class="col">Rg</div>
+        <div class="col">Data de Nascimento</div>
+        <div class="col">Contato</div>
+        <div class="col"></div>
+    </div>
+
+    @await Html.PartialAsync("_ProviderList", Model)
+</div>
+
+<div class="modal fade reload" id="providerModal" tabindex="-1" role="dialog" aria-labelledby="newProviderLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="providerModalContent">
+        </div>
+    </div>
+</div>
+
+<div class="modal fade reload" id="filterProviderModal" tabindex="-1" role="dialog" aria-labelledby="filterProviderLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="filterProviderModalContent">
+            @await Html.PartialAsync("_ProviderFilterForm", new CompanyProvider.Domain.Filters.CompanyProviderFilter())
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/provider.js"></script>

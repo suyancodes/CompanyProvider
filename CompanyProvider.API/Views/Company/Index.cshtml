@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Empresas";
+}
+
+@model CompanyProvider.API.Models.CompanyListViewModel
+
+<div>
+    <input type="button" value="Cadastrar" onclick="createCompany()" />
+</div>
+
+<br />
+
+<div class="grid">
+    <div class="row grid-header">
+        <div class="col"></div>
+        <div class="col">Nome</div>
+        <div class="col">Estado</div>
+        <div class="col">Cnpj</div>
+        <div class="col"></div>
+    </div>
+
+    @await Html.PartialAsync("_CompanyList", Model)
+</div>
+
+<div class="modal fade reload" id="companyModal" tabindex="-1" role="dialog" aria-labelledby="companyFormLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="companyModalContent">
+        </div>
+    </div>
+</div>
+
+<script src="~/js/company.js"></script>

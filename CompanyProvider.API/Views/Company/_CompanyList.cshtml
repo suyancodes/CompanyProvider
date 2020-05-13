@@ -1,0 +1,26 @@
+﻿@model CompanyProvider.API.Models.CompanyListViewModel
+
+@if (Model.Companies != null && Model.Companies.Any())
+{
+    @foreach (var item in Model.Companies)
+    {
+        <div class="row @(Model.Companies.IndexOf(item) % 2 == 0 ? "row-light" : "row-dark")">
+            <div class="col"><i class="btn fas fa-pencil-alt" onclick="editCompany(@item.Id);"></i></div>
+            <div class="col">@item.FantasyName</div>
+            <div class="col">@item.Uf</div>
+            <div class="col">@item.Cnpj</div>
+            <div class="col"><i class="btn fas fa-trash-alt" onclick="deleteCompany(@item.Id);"></i></div>
+        </div>
+    }
+    <div class="row grid-footer">
+        <label>
+            @(string.Format("Exibindo {0} empresas.", Model.Companies.Count))
+        </label>
+    </div>
+}
+else
+{
+    <div class="row grid-footer">
+        <div class="col">Nenhuma empresa cadastrada.</div>
+    </div>
+}

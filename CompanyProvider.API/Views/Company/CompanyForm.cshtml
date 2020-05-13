@@ -1,0 +1,51 @@
+﻿@{
+    Layout = null;
+}
+
+@model CompanyProvider.API.Models.NewCompanyViewModel
+
+<div class="modal-header">
+    <h5 class="modal-title" id="companyFormLabel">Empresa</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form id="companyForm">
+        @Html.HiddenFor(p => p.Id)
+        <div class="form-group">
+            <div class="row">
+                <div class="col-5 text-right">
+                    @Html.LabelFor(m => m.FantasyName)
+                </div>
+                <div class="col">
+                    @Html.TextBoxFor(m => m.FantasyName)
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-5 text-right">
+                    @Html.LabelFor(m => m.Uf)
+                </div>
+                <div class="col">
+                    @Html.DropDownListFor(m => m.Uf, Model.States)
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-5 text-right">
+                    @Html.LabelFor(m => m.Cnpj)
+                </div>
+                <div class="col">
+                    @Html.TextBoxFor(m => m.Cnpj, new { id = "companyCnpj" })
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <input type="button" class="btn btn-primary" id="saveCompanyButton" value="Salvar" />
+    <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancelar" />
+</div>

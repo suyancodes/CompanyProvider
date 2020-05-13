@@ -1,0 +1,30 @@
+﻿@model CompanyProvider.API.Models.CompanyProviderListViewModel
+
+@if (Model.Providers != null && Model.Providers.Any())
+{
+    @foreach (var item in Model.Providers)
+    {
+        <div class="row @(Model.Providers.IndexOf(item) % 2 == 0 ? "row-light" : "row-dark")">
+            <div class="col"><i class="btn fas fa-pencil-alt" onclick="editProvider(@item.Id);"></i></div>
+            <div class="col">@item.CompanyFantasyName</div>
+            <div class="col">@item.Name</div>
+            <div class="col">@item.Uf</div>
+            <div class="col">@item.CpfCnpj</div>
+            <div class="col">@item.Rg</div>
+            <div class="col">@item.BirthDate</div>
+            <div class="col">@item.Contacts</div>
+            <div class="col"><i class="btn fas fa-trash-alt" onclick="deleteProvider(@item.Id);"></i></div>
+        </div>
+    }
+    <div class="row grid-footer">
+        <label>
+            @(string.Format("Exibindo {0} fornecedores.", Model.Providers.Count))
+        </label>
+    </div>
+}
+else
+{
+    <div class="row grid-footer">
+        <div class="col">Nenhum fornecedor cadastrado.</div>
+    </div>
+}
